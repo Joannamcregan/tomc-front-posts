@@ -1,0 +1,28 @@
+.tomc-front-posts--delete, #tomc-front-posts__permanently-delete-button{
+    background-color: #893e43;
+    color: white;
+    font-size: 16;
+    border-radius: 15px;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin: 20px 10px;
+}
+.tomc-front-posts--edit{
+    background-color: #e44e2d;
+    color: white;
+    font-size: 16;
+    border-radius: 15px;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin: 20px 10px;
+}
+.tomc-front-posts--save-button{
+    background-color: #0c6980;
+    color: white;
+    font-size: 16;
+    border-radius: 15px;
+    padding: 10px 20px;
+    cursor: pointer;
+    display: block;
+    margin: 40px auto 10px auto;
+}
