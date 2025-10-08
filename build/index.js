@@ -24,6 +24,9 @@ class BlogUpdate {
     this.titleField = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#edit-blog--title');
     this.contentField = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#edit-blog--content_ifr #tinymce');
     this.deletePostOverlay = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-front-post__permanently-delete-post-overlay');
+    this.saveEditsButton = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-front-post--save-edits');
+    this.noTitleError = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-front-post--edit-errors-title');
+    this.noContentError = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-front-post--edit-errors-post');
     this.events();
     this.editPostOverlayIsOpen = false;
   }
@@ -31,18 +34,34 @@ class BlogUpdate {
     this.editButtons.on('click', this.openEditPostOverlay.bind(this));
     this.deleteButtons.on('click', this.deletePost.bind(this));
     this.closeEditOverlayButton.on('click', this.closeEditOverlay.bind(this));
+    this.saveEditsButton.on('click', this.saveEdits.bind(this));
+  }
+  saveEdits() {
+    const newTitle = this.titleField.val();
+    const newContent = tinyMCE.get('edit-blog--content').getContent();
+    if (newTitle != '' && newContent != '') {
+      this.noTitleError.addClass('hidden');
+      this.noContentError.addClass('hidden');
+    } else {
+      if (newTitle == '') {
+        this.noTitleError.removeClass('hidden');
+      }
+      if (newContent == '') {
+        this.noContentError.removeClass('hidden');
+      }
+    }
   }
   openEditPostOverlay(e) {
     let postId = jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).parent('.tomc-front-posts--edit-book-options').data('post');
     this.editPostOverlay.attr('data-post', postId);
     this.titleField.val(jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).parent('.tomc-front-posts--edit-book-options').data('title'));
     let content = jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).parent('.tomc-front-posts--edit-book-options').data('content');
-    console.log(content);
     var editor = tinyMCE.get('edit-blog--content');
     if (editor) {
       editor.setContent(content);
     }
-    console.log(this.contentField.val());
+    this.noTitleError.addClass('hidden');
+    this.noContentError.addClass('hidden');
     this.editPostOverlay.addClass("tomc-book-organization__box--active");
     jquery__WEBPACK_IMPORTED_MODULE_0___default()("body").addClass("body-no-scroll");
   }
