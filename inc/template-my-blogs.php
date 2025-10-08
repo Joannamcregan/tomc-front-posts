@@ -48,11 +48,11 @@ get_header();
                                         ),
                                 );
                             wp_editor( $content, $editor_id, $settings ); ?>
-                            <div class="tomc-front-post--form-div hidden tomc-front-post--red-text centered-text" id="tomc-front-post--edit-basic-info-errors">
+                            <div class="tomc-front-post--form-div tomc-front-post--red-text centered-text" id="tomc-front-post--edit-basic-info-errors">
                                 <p class="hidden" id="tomc-front-post--edit-errors-title">Your blog post's title cannot be blank.</p>
                                 <p class="hidden" id="tomc-front-post--edit-errors-post">Your blog post cannot be blank.</p>
                             </div>
-                            <button class="tomc-front-posts--save-button" id="tomc-front-post--save-basic-info-edits">save</button>
+                            <button class="tomc-front-posts--save-button" id="tomc-front-post--save-edits">save</button>
                         </div>
                     </div>    
 

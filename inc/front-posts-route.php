@@ -6,3 +6,27 @@ function tomcFrontPostsRegisterRoute() {
         'callback' => 'updatePost'
     ));
 }
+
+function updatePost($data){
+    $user = wp_get_current_user();
+    global $wpdb;
+    $userid = $user->ID;
+    $posts_table = $wpdb->prefix .  "posts";
+    $postId = sanitize_text_field($data['post']);
+    $title = sanitize_text_field($data['title']);
+    $content = sanitize_text_field($data['content']);
+    $query = 'SELECT * FROM ' . $books_table . ' WHERE ID = ' . $book;
+    if (is_user_logged_in() && (in_array( 'dc_vendor', (array) $user->roles ) )){
+        $wpdb->update(
+            $posts_table, 
+            array(
+                'post_title' => $title,
+                'post_content' => $content
+            ), 
+            array('id' => $postId, 'post_author' => $userid));
+            return 'success';
+    } else {
+        wp_safe_redirect(site_url('/my-account'));
+        return 'fail';
+    }
+}
