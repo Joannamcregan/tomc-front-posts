@@ -7,6 +7,7 @@
 */
 
 if( ! defined('ABSPATH') ) exit;
+require_once plugin_dir_path(__FILE__) . 'inc/front-posts-route.php';
 
 class TOMCFrontBlog {
     function __construct() {
