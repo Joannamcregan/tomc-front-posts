@@ -1,7 +1,7 @@
-<?php add_action('rest_api_init', 'tomcBookorgRegisterRoute');
+<?php add_action('rest_api_init', 'tomcFrontPostsRegisterRoute');
 
 function tomcFrontPostsRegisterRoute() {
-    register_rest_route('tomcBookorg/v1', 'updatePost', array(
+    register_rest_route('tomcFrontBlogs/v1', 'updatePost', array(
         'methods' => 'POST',
         'callback' => 'updatePost'
     ));
