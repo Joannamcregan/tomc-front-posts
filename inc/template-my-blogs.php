@@ -38,7 +38,16 @@ get_header();
                             <label for="edit-blog--title">Blog Post Title</label>
                             <input type="text" id="edit-blog--title"></input>
                             <label for="edit-blog--content">Blog Post Content</label>
-                            <textarea id="edit-blog--content"></textarea>
+                            <?php $content = '';
+                                $editor_id = 'edit-blog--content';
+                                $settings = array( 
+                                    'wpautop' => false, 
+                                    'media_buttons' => false, 
+                                    'quicktags' => array(
+                                            'buttons' => 'strong,em,del,ul,ol,li,block,close'
+                                        ),
+                                );
+                            wp_editor( $content, $editor_id, $settings ); ?>
                             <div class="tomc-front-post--form-div hidden tomc-front-post--red-text centered-text" id="tomc-front-post--edit-basic-info-errors">
                                 <p class="hidden" id="tomc-front-post--edit-errors-title">Your blog post's title cannot be blank.</p>
                                 <p class="hidden" id="tomc-front-post--edit-errors-post">Your blog post cannot be blank.</p>

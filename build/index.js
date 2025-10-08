@@ -22,7 +22,7 @@ class BlogUpdate {
     this.editPostOverlay = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-front-post__edit-post-overlay');
     this.closeEditOverlayButton = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.tomc-front-posts--close-overlay');
     this.titleField = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#edit-blog--title');
-    this.contentField = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#edit-blog--content');
+    this.contentField = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#edit-blog--content_ifr #tinymce');
     this.deletePostOverlay = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-front-post__permanently-delete-post-overlay');
     this.events();
     this.editPostOverlayIsOpen = false;
@@ -36,6 +36,12 @@ class BlogUpdate {
     let postId = jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).parent('.tomc-front-posts--edit-book-options').data('post');
     this.editPostOverlay.attr('data-post', postId);
     this.titleField.val(jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).parent('.tomc-front-posts--edit-book-options').data('title'));
+    var editor = tinyMCE.get('edit-blog--content');
+    if (editor) {
+      editor.setContent('<h2>New content set by jQuery!</h2><p>This is a paragraph.</p>');
+    }
+    this.contentField.val(jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).parent('.tomc-front-posts--edit-book-options').data('content'));
+    console.log(this.contentField.val());
     this.editPostOverlay.addClass("tomc-book-organization__box--active");
     jquery__WEBPACK_IMPORTED_MODULE_0___default()("body").addClass("body-no-scroll");
   }
