@@ -20,8 +20,8 @@ get_header();
                 ?><div class="third-screen">
                     <?php for($i = 0; $i < count($posts); $i++){
                         ?><div class="tomc-front-posts--post-to-edit page-accent-alt-thin">
-                            <p class="centered-text"><strong class="tomc-front-posts--post-to-edit-title tomc-book-options--cursor-pointer underlined-text"><?php echo $posts[$i]['post_title']; ?></strong></p>
-                            <div class="flex justify-content-center tomc-front-posts--edit-book-options" data-post="<?php echo $posts[$i]['id']; ?>">
+                            <p class="centered-text"><strong class="tomc-front-posts--post-to-edit-title tomc-book-options--cursor-pointer"><?php echo $posts[$i]['post_title']; ?></strong></p>
+                            <div class="flex justify-content-center tomc-front-posts--edit-book-options" data-post="<?php echo $posts[$i]['id']; ?>" data-title="<?php echo $posts[$i]['post_title']; ?>" data-content="<?php echo $posts[$i]['post_content']; ?>">
                                 <button class="tomc-front-posts--edit">edit</button>
                                 <button class="tomc-front-posts--delete">delete</button>
                             </div>

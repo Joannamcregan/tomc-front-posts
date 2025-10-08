@@ -21,6 +21,8 @@ class BlogUpdate {
     this.deleteButtons = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.tomc-front-posts--delete');
     this.editPostOverlay = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-front-post__edit-post-overlay');
     this.closeEditOverlayButton = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.tomc-front-posts--close-overlay');
+    this.titleField = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#edit-blog--title');
+    this.contentField = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#edit-blog--content');
     this.deletePostOverlay = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-front-post__permanently-delete-post-overlay');
     this.events();
     this.editPostOverlayIsOpen = false;
@@ -33,6 +35,7 @@ class BlogUpdate {
   openEditPostOverlay(e) {
     let postId = jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).parent('.tomc-front-posts--edit-book-options').data('post');
     this.editPostOverlay.attr('data-post', postId);
+    this.titleField.val(jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).parent('.tomc-front-posts--edit-book-options').data('title'));
     this.editPostOverlay.addClass("tomc-book-organization__box--active");
     jquery__WEBPACK_IMPORTED_MODULE_0___default()("body").addClass("body-no-scroll");
   }
