@@ -36,11 +36,12 @@ class BlogUpdate {
     let postId = jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).parent('.tomc-front-posts--edit-book-options').data('post');
     this.editPostOverlay.attr('data-post', postId);
     this.titleField.val(jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).parent('.tomc-front-posts--edit-book-options').data('title'));
+    let content = jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).parent('.tomc-front-posts--edit-book-options').data('content');
+    console.log(content);
     var editor = tinyMCE.get('edit-blog--content');
     if (editor) {
-      editor.setContent('<h2>New content set by jQuery!</h2><p>This is a paragraph.</p>');
+      editor.setContent(content);
     }
-    this.contentField.val(jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).parent('.tomc-front-posts--edit-book-options').data('content'));
     console.log(this.contentField.val());
     this.editPostOverlay.addClass("tomc-book-organization__box--active");
     jquery__WEBPACK_IMPORTED_MODULE_0___default()("body").addClass("body-no-scroll");

@@ -23,11 +23,12 @@ class BlogUpdate{
         let postId = $(e.target).parent('.tomc-front-posts--edit-book-options').data('post');
         this.editPostOverlay.attr('data-post', postId);
         this.titleField.val($(e.target).parent('.tomc-front-posts--edit-book-options').data('title'));
+        let content = $(e.target).parent('.tomc-front-posts--edit-book-options').data('content');
+        console.log(content);
         var editor = tinyMCE.get('edit-blog--content');
-if (editor) {
-    editor.setContent('<h2>New content set by jQuery!</h2><p>This is a paragraph.</p>');
-}
-        this.contentField.val($(e.target).parent('.tomc-front-posts--edit-book-options').data('content'));
+        if (editor) {
+            editor.setContent(content);
+        }
         console.log(this.contentField.val());
         this.editPostOverlay.addClass("tomc-book-organization__box--active");
         $("body").addClass("body-no-scroll");

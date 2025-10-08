@@ -31,12 +31,16 @@
     width: 90%;
 }
 #edit-blog--title{
-    width: 260px;
+    max-width: 500px;
+    width: 95%;
     margin: 10px 0px 30px 0px;
     padding: 10px;
 }
+label[for="edit-blog--content"]{
+    margin-bottom: -60px;
+}
 #edit-blog--content_ifr{
-    width: 90%;
+    width: 95% !important;
     min-height: 200px;
     margin: 10px 0px 30px 0px;
     border-radius: 10px;
