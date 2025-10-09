@@ -40,33 +40,30 @@ class BlogUpdate {
   saveEdits(e) {
     const newTitle = this.titleField.val();
     const newContent = tinyMCE.get('edit-blog--content').getContent();
-    console.log('new title is ' + newTitle);
-    console.log('new content is ' + newContent);
-    console.log('post id is ' + this.postId);
     if (newTitle != '' && newContent != '') {
       this.noTitleError.addClass('hidden');
       this.noContentError.addClass('hidden');
       jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).addClass('contracting');
-      // $.ajax({
-      //         beforeSend: (xhr) => {
-      //             xhr.setRequestHeader('X-WP-Nonce', marketplaceData.nonce);
-      //         },
-      //         url: tomcBookorgData.root_url + '/wp-json/tomcFrontBlogs/v1/updatePost',
-      //         type: 'POST',
-      //         data: {
-      //             'postId' : postId,
-      //             'title' : newTitle,
-      //             'content' : newContent
-      //         },
-      //         success: (response) => {
-      //             $(e.target).removeClass('contracting');
-      //             location.reload(true);
-      //         },
-      //         error: (response) => {
-      //             $(e.target).removeClass('contracting');
-      //             // console.log(response);
-      //         }
-      //     })
+      jquery__WEBPACK_IMPORTED_MODULE_0___default().ajax({
+        beforeSend: xhr => {
+          xhr.setRequestHeader('X-WP-Nonce', marketplaceData.nonce);
+        },
+        url: tomcBookorgData.root_url + '/wp-json/tomcFrontBlogs/v1/updatePost',
+        type: 'POST',
+        data: {
+          'post': this.postId,
+          'title': newTitle,
+          'content': newContent
+        },
+        success: response => {
+          jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).removeClass('contracting');
+          location.reload(true);
+        },
+        error: response => {
+          jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).removeClass('contracting');
+          // console.log(response);
+        }
+      });
     } else {
       if (newTitle == '') {
         this.noTitleError.removeClass('hidden');
