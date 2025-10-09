@@ -5,6 +5,27 @@ function tomcFrontPostsRegisterRoute() {
         'methods' => 'POST',
         'callback' => 'updatePost'
     ));
+    register_rest_route('tomcFrontBlogs/v1', 'deletePost', array(
+        'methods' => 'POST',
+        'callback' => 'deletePost'
+    ));
+}
+
+function deletePost($data){
+    $user = wp_get_current_user();
+    global $wpdb;
+    $userid = $user->ID;
+    $posts_table = $wpdb->prefix .  "posts";
+    $postId = sanitize_text_field($data['post']);
+    if (is_user_logged_in() && (in_array( 'administrator', (array) $user->roles ) || in_array( 'creator-member', (array) $user->roles ) )){
+        $wpdb->delete(
+            $posts_table,
+            array('id' => $postId, 'post_author' => $userid));
+            return 'success';
+    } else {
+        wp_safe_redirect(site_url('/my-account'));
+        return 'fail';
+    }
 }
 
 function updatePost($data){

@@ -29,9 +29,11 @@ class BlogUpdate {
     this.noContentError = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-front-post--edit-errors-post');
     this.deletePostOverlay = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-front-post__permanently-delete-post-overlay');
     this.cancelDeleteButton = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-front-post__cancel-permanent-deletion-button');
+    this.permanentlyDeleteButton = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-front-post__permanently-delete-button');
     this.events();
     this.editPostOverlayIsOpen = false;
     this.deletePostOverlayIsOpen = false;
+    this.deletePostError = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-front-post__deletion-error');
     this.postId;
   }
   events() {
@@ -40,6 +42,7 @@ class BlogUpdate {
     this.closeEditOverlayButton.on('click', this.closeEditOverlay.bind(this));
     this.saveEditsButton.on('click', this.saveEdits.bind(this));
     this.cancelDeleteButton.on('click', this.closeDeletePostOverlay.bind(this));
+    this.permanentlyDeleteButton.on('click', this.permanentlyDeletePost.bind(this));
   }
   saveEdits(e) {
     const newTitle = this.titleField.val();
@@ -101,6 +104,7 @@ class BlogUpdate {
   openDeletePostOverlay(e) {
     if (this.deletePostOverlayIsOpen != true) {
       this.postId = jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).parent('.tomc-front-posts--edit-book-options').data('post');
+      this.deletePostError.addClass('hidden');
       this.deletePostOverlay.addClass("tomc-book-organization__box--active");
       jquery__WEBPACK_IMPORTED_MODULE_0___default()("body").addClass("body-no-scroll");
     }
@@ -110,6 +114,29 @@ class BlogUpdate {
     jquery__WEBPACK_IMPORTED_MODULE_0___default()("body").removeClass("body-no-scroll");
     this.postId = 0;
     this.deletePostOverlayIsOpen = false;
+  }
+  permanentlyDeletePost(e) {
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).addClass('contracting');
+    jquery__WEBPACK_IMPORTED_MODULE_0___default().ajax({
+      beforeSend: xhr => {
+        xhr.setRequestHeader('X-WP-Nonce', marketplaceData.nonce);
+      },
+      url: tomcBookorgData.root_url + '/wp-json/tomcFrontBlogs/v1/deletePost',
+      type: 'POST',
+      data: {
+        'post': this.postId
+      },
+      success: response => {
+        console.log(response);
+        jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).removeClass('contracting');
+        location.reload(true);
+      },
+      error: response => {
+        console.log(response);
+        jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).removeClass('contracting');
+        this.deletePostError.addClass('hidden');
+      }
+    });
   }
 }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (BlogUpdate);

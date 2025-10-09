@@ -14,9 +14,11 @@ class BlogUpdate{
         this.noContentError = $('#tomc-front-post--edit-errors-post');
         this.deletePostOverlay = $('#tomc-front-post__permanently-delete-post-overlay');
         this.cancelDeleteButton = $('#tomc-front-post__cancel-permanent-deletion-button');
+        this.permanentlyDeleteButton = $('#tomc-front-post__permanently-delete-button');
         this.events();
         this.editPostOverlayIsOpen = false;
         this.deletePostOverlayIsOpen = false;
+        this.deletePostError = $('#tomc-front-post__deletion-error');
         this.postId;
     }
 
@@ -26,6 +28,7 @@ class BlogUpdate{
         this.closeEditOverlayButton.on('click', this.closeEditOverlay.bind(this));
         this.saveEditsButton.on('click', this.saveEdits.bind(this));
         this.cancelDeleteButton.on('click', this.closeDeletePostOverlay.bind(this));
+        this.permanentlyDeleteButton.on('click', this.permanentlyDeletePost.bind(this));
     }
 
     saveEdits(e){
@@ -91,6 +94,7 @@ class BlogUpdate{
     openDeletePostOverlay(e){
         if (this.deletePostOverlayIsOpen != true){
             this.postId = $(e.target).parent('.tomc-front-posts--edit-book-options').data('post');
+            this.deletePostError.addClass('hidden');
             this.deletePostOverlay.addClass("tomc-book-organization__box--active");
             $("body").addClass("body-no-scroll");
         }
@@ -101,6 +105,30 @@ class BlogUpdate{
         $("body").removeClass("body-no-scroll");
         this.postId = 0;
         this.deletePostOverlayIsOpen = false;
+    }
+
+    permanentlyDeletePost(e){
+        $(e.target).addClass('contracting');
+            $.ajax({
+                beforeSend: (xhr) => {
+                    xhr.setRequestHeader('X-WP-Nonce', marketplaceData.nonce);
+                },
+                url: tomcBookorgData.root_url + '/wp-json/tomcFrontBlogs/v1/deletePost',
+                type: 'POST',
+                data: {
+                    'post' : this.postId
+                },
+                success: (response) => {
+                    console.log(response);
+                    $(e.target).removeClass('contracting');
+                    location.reload(true);
+                },
+                error: (response) => {
+                    console.log(response);
+                    $(e.target).removeClass('contracting');
+                    this.deletePostError.addClass('hidden');
+                }
+            })
     }
 }
 

@@ -5,7 +5,7 @@ $posts_table = $wpdb->prefix . "posts";
 get_header();
 
 ?><main>
-    <div class="banner"><h1 class="centered-text banner-heading-40">New Post</h1></div>
+    <div class="banner"><h1 class="centered-text banner-heading-40">My Blog Posts</h1></div>
     <br>
     <br>
     <?php $user = wp_get_current_user();
