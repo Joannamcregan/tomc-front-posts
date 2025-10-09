@@ -12,16 +12,20 @@ class BlogUpdate{
         this.saveEditsButton = $('#tomc-front-post--save-edits');
         this.noTitleError = $('#tomc-front-post--edit-errors-title');
         this.noContentError = $('#tomc-front-post--edit-errors-post');
+        this.deletePostOverlay = $('#tomc-front-post__permanently-delete-post-overlay');
+        this.cancelDeleteButton = $('#tomc-front-post__cancel-permanent-deletion-button');
         this.events();
         this.editPostOverlayIsOpen = false;
+        this.deletePostOverlayIsOpen = false;
         this.postId;
     }
 
     events(){
         this.editButtons.on('click', this.openEditPostOverlay.bind(this));
-        this.deleteButtons.on('click', this.deletePost.bind(this));
+        this.deleteButtons.on('click', this.openDeletePostOverlay.bind(this));
         this.closeEditOverlayButton.on('click', this.closeEditOverlay.bind(this));
         this.saveEditsButton.on('click', this.saveEdits.bind(this));
+        this.cancelDeleteButton.on('click', this.closeDeletePostOverlay.bind(this));
     }
 
     saveEdits(e){
@@ -84,8 +88,19 @@ class BlogUpdate{
         this.editPostOverlayIsOpen = false;
     }
 
-    deletePost(){
-        console.log('deleting the post');
+    openDeletePostOverlay(e){
+        if (this.deletePostOverlayIsOpen != true){
+            this.postId = $(e.target).parent('.tomc-front-posts--edit-book-options').data('post');
+            this.deletePostOverlay.addClass("tomc-book-organization__box--active");
+            $("body").addClass("body-no-scroll");
+        }
+    }
+
+    closeDeletePostOverlay(){
+        this.deletePostOverlay.removeClass("tomc-book-organization__box--active");
+        $("body").removeClass("body-no-scroll");
+        this.postId = 0;
+        this.deletePostOverlayIsOpen = false;
     }
 }
 

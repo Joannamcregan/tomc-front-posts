@@ -27,15 +27,19 @@ class BlogUpdate {
     this.saveEditsButton = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-front-post--save-edits');
     this.noTitleError = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-front-post--edit-errors-title');
     this.noContentError = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-front-post--edit-errors-post');
+    this.deletePostOverlay = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-front-post__permanently-delete-post-overlay');
+    this.cancelDeleteButton = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-front-post__cancel-permanent-deletion-button');
     this.events();
     this.editPostOverlayIsOpen = false;
+    this.deletePostOverlayIsOpen = false;
     this.postId;
   }
   events() {
     this.editButtons.on('click', this.openEditPostOverlay.bind(this));
-    this.deleteButtons.on('click', this.deletePost.bind(this));
+    this.deleteButtons.on('click', this.openDeletePostOverlay.bind(this));
     this.closeEditOverlayButton.on('click', this.closeEditOverlay.bind(this));
     this.saveEditsButton.on('click', this.saveEdits.bind(this));
+    this.cancelDeleteButton.on('click', this.closeDeletePostOverlay.bind(this));
   }
   saveEdits(e) {
     const newTitle = this.titleField.val();
@@ -94,8 +98,18 @@ class BlogUpdate {
     this.postId = 0;
     this.editPostOverlayIsOpen = false;
   }
-  deletePost() {
-    console.log('deleting the post');
+  openDeletePostOverlay(e) {
+    if (this.deletePostOverlayIsOpen != true) {
+      this.postId = jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).parent('.tomc-front-posts--edit-book-options').data('post');
+      this.deletePostOverlay.addClass("tomc-book-organization__box--active");
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()("body").addClass("body-no-scroll");
+    }
+  }
+  closeDeletePostOverlay() {
+    this.deletePostOverlay.removeClass("tomc-book-organization__box--active");
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()("body").removeClass("body-no-scroll");
+    this.postId = 0;
+    this.deletePostOverlayIsOpen = false;
   }
 }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (BlogUpdate);

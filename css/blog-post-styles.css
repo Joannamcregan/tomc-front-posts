@@ -1,4 +1,4 @@
-.tomc-front-posts--delete, #tomc-front-posts__permanently-delete-button{
+.tomc-front-posts--delete{
     background-color: #893e43;
     color: white;
     font-size: 16;
@@ -6,6 +6,16 @@
     padding: 10px 20px;
     cursor: pointer;
     margin: 20px 10px;
+}
+#tomc-front-post__permanently-delete-button{
+    background-color: #893e43;
+    color: white;
+    font-size: 16;
+    border-radius: 15px;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin: 20px auto;
+    display: block;
 }
 .tomc-front-posts--edit{
     background-color: #e44e2d;
@@ -46,4 +56,7 @@ label[for="edit-blog--content"]{
     border-radius: 10px;
     padding: 10px;
     resize: vertical;
+}
+#tomc-front-post__permanent-deletion-warning-message{
+    margin-top: 80px;
 }
