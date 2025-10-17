@@ -5,14 +5,11 @@ $posts_table = $wpdb->prefix . "posts";
 get_header();
 
 ?><main>
-    <div class="banner"><h1 class="centered-text banner-heading-40">My Blog Posts</h1></div>
-    <br>
-    <br>
     <?php $user = wp_get_current_user();
     if (is_user_logged_in()){
         if ((in_array( 'creator-member', (array) $user->roles )) || (in_array( 'administrator', (array) $user->roles ))){
             ?><div class="generic-content">
-                <h2 class="centered-text padding-x-20">Your Blog Posts</h2>
+                <h1 class="centered-text padding-x-20">Your Blog Posts</h1>
                 <?php $query = "SELECT id, post_title, post_content, post_date from %i WHERE post_author = %d and post_type = 'post' ORDER BY post_date desc";
                 $userid = $user->ID;
                 $posts = $wpdb->get_results($wpdb->prepare($query, $posts_table, $userid), ARRAY_A);
@@ -28,7 +25,9 @@ get_header();
                         </div>
                     <?php }
 
-                    ?><div class="tomc-book-organization__overlay" id="tomc-front-post__edit-post-overlay">
+                    ?><p class="centered-text padding-x-20"><a href="<?php echo esc_url(site_url('/add-blog-post'));?>">Add Blog Post</a></p>
+
+                    <div class="tomc-book-organization__overlay" id="tomc-front-post__edit-post-overlay">
                         <div class="overlay-main-container">
                             <br>
                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="30" height="30" viewBox="0 0 30 30" class="tomc-book-organization__overlay__close tomc-front-posts--close-overlay">
