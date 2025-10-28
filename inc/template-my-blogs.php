@@ -11,8 +11,7 @@ get_header();
             ?><div class="generic-content">
                 <h1 class="centered-text purple-heading-closed" id="add-blog-post">Add a Blog Post</h1>
                 <div id="new-blog-post-form" class="hidden">
-                    <!-- <?php echo do_shortcode('[forminator_form id="6040"]'); ?>  -->
-                    <?php echo do_shortcode('[forminator_form id="314"]'); ?>
+                    <?php echo do_shortcode('[forminator_form id="6040"]'); ?> 
                     <!-- prod= 6040, dev = 314 -->
                 </div>
                 <h1 class="centered-text">Your Blog Posts</h1>
