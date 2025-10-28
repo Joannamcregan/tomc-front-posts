@@ -27,9 +27,9 @@ get_header();
                                 <button class="tomc-front-posts--edit">edit</button>
                                 <?php if ($posts[$i]['post_status'] == 'publish'){
                                     ?><button class="tomc-front-posts--unpublish">unpublish</button>
-                                    <button class="tomc-front-posts--delete">delete</button>
                                 <?php } else {
                                     ?><button class="tomc-front-posts--publish">publish</button>
+                                    <button class="tomc-front-posts--delete">delete</button>
                                 <?php }                                
                             ?></div>
                         </div>
