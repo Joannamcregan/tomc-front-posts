@@ -9,8 +9,14 @@ get_header();
     if (is_user_logged_in()){
         if ((in_array( 'creator-member', (array) $user->roles )) || (in_array( 'administrator', (array) $user->roles ))){
             ?><div class="generic-content">
-                <h1 class="centered-text padding-x-20">Your Blog Posts</h1>
-                <?php $query = "SELECT id, post_title, post_content, post_date from %i WHERE post_author = %d and post_type = 'post' ORDER BY post_date desc";
+                <h1 class="centered-text purple-heading-closed" id="add-blog-post">Add a Blog Post</h1>
+                <div id="new-blog-post-form" class="hidden">
+                    <!-- <?php echo do_shortcode('[forminator_form id="6040"]'); ?>  -->
+                    <?php echo do_shortcode('[forminator_form id="314"]'); ?>
+                    <!-- prod= 6040, dev = 314 -->
+                </div>
+                <h1 class="centered-text">Your Blog Posts</h1>
+                <?php $query = "SELECT id, post_title, post_content, post_date, post_status from %i WHERE post_author = %d and post_type = 'post' ORDER BY post_date desc";
                 $userid = $user->ID;
                 $posts = $wpdb->get_results($wpdb->prepare($query, $posts_table, $userid), ARRAY_A);
                 if ($posts){
@@ -18,16 +24,19 @@ get_header();
                     <?php for($i = 0; $i < count($posts); $i++){
                         ?><div class="tomc-front-posts--post-to-edit page-accent-alt-thin">
                             <p class="centered-text"><strong class="tomc-front-posts--post-to-edit-title tomc-book-options--cursor-pointer"><?php echo $posts[$i]['post_title']; ?></strong></p>
-                            <div class="flex justify-content-center tomc-front-posts--edit-book-options" data-post="<?php echo $posts[$i]['id']; ?>" data-title="<?php echo $posts[$i]['post_title']; ?>" data-content="<?php echo $posts[$i]['post_content']; ?>">
+                            <div class="flex flex-wrap justify-content-center tomc-front-posts--edit-book-options" data-post="<?php echo $posts[$i]['id']; ?>" data-title="<?php echo $posts[$i]['post_title']; ?>" data-content="<?php echo $posts[$i]['post_content']; ?>">
                                 <button class="tomc-front-posts--edit">edit</button>
-                                <button class="tomc-front-posts--delete">delete</button>
-                            </div>
+                                <?php if ($posts[$i]['post_status'] == 'publish'){
+                                    ?><button class="tomc-front-posts--unpublish">unpublish</button>
+                                    <button class="tomc-front-posts--delete">delete</button>
+                                <?php } else {
+                                    ?><button class="tomc-front-posts--publish">publish</button>
+                                <?php }                                
+                            ?></div>
                         </div>
                     <?php }
 
-                    ?><p class="centered-text padding-x-20"><a href="<?php echo esc_url(site_url('/add-blog-post'));?>">Add Blog Post</a></p>
-
-                    <div class="tomc-book-organization__overlay" id="tomc-front-post__edit-post-overlay">
+                    ?><div class="tomc-book-organization__overlay" id="tomc-front-post__edit-post-overlay">
                         <div class="overlay-main-container">
                             <br>
                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="30" height="30" viewBox="0 0 30 30" class="tomc-book-organization__overlay__close tomc-front-posts--close-overlay">

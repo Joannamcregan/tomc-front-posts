@@ -3,6 +3,8 @@ import $ from 'jquery';
 class BlogUpdate{
     constructor(){
         this.editButtons = $('.tomc-front-posts--edit');
+        this.publishButtons = $('.tomc-front-posts--publish');
+        this.unpublishButtons = $('.tomc-front-posts--unpublish');
         this.deleteButtons = $('.tomc-front-posts--delete')
         this.editPostOverlay = $('#tomc-front-post__edit-post-overlay');
         this.closeEditOverlayButton = $('.tomc-front-posts--close-overlay');
@@ -15,6 +17,8 @@ class BlogUpdate{
         this.deletePostOverlay = $('#tomc-front-post__permanently-delete-post-overlay');
         this.cancelDeleteButton = $('#tomc-front-post__cancel-permanent-deletion-button');
         this.permanentlyDeleteButton = $('#tomc-front-post__permanently-delete-button');
+        this.addPostButton = $('#add-blog-post');
+        this.addPostForm = $('#new-blog-post-form');
         this.events();
         this.editPostOverlayIsOpen = false;
         this.deletePostOverlayIsOpen = false;
@@ -25,10 +29,63 @@ class BlogUpdate{
     events(){
         this.editButtons.on('click', this.openEditPostOverlay.bind(this));
         this.deleteButtons.on('click', this.openDeletePostOverlay.bind(this));
+        this.publishButtons.on('click', this.publishPost.bind(this));
+        this.unpublishButtons.on('click', this.unpublishPost.bind(this));
         this.closeEditOverlayButton.on('click', this.closeEditOverlay.bind(this));
         this.saveEditsButton.on('click', this.saveEdits.bind(this));
         this.cancelDeleteButton.on('click', this.closeDeletePostOverlay.bind(this));
         this.permanentlyDeleteButton.on('click', this.permanentlyDeletePost.bind(this));
+        this.addPostButton.on('click', (e)=> {
+            this.addPostForm.toggleClass('hidden');
+            $(e.target).toggleClass('purple-heading-open');
+            $(e.target).toggleClass('purple-heading-closed');
+        });
+    }
+
+    publishPost(e){
+        const blogId = $(e.target).parent('.tomc-front-posts--edit-book-options').data('post');
+        $(e.target).addClass('contracting');
+        $.ajax({
+            beforeSend: (xhr) => {
+                xhr.setRequestHeader('X-WP-Nonce', marketplaceData.nonce);
+            },
+            url: tomcBookorgData.root_url + '/wp-json/tomcFrontBlogs/v1/publishPost',
+            type: 'POST',
+            data: {
+                'post' : blogId
+            },
+            success: (response) => {
+                $(e.target).removeClass('contracting');
+                location.reload(true);
+            },
+            error: (response) => {
+                $(e.target).removeClass('contracting');
+                // console.log(response);
+            }
+        })
+    }
+
+    unpublishPost(e){
+        const blogId = $(e.target).parent('.tomc-front-posts--edit-book-options').data('post');
+        $(e.target).addClass('contracting');
+        $.ajax({
+            beforeSend: (xhr) => {
+                xhr.setRequestHeader('X-WP-Nonce', marketplaceData.nonce);
+            },
+            url: tomcBookorgData.root_url + '/wp-json/tomcFrontBlogs/v1/unpublishPost',
+            type: 'POST',
+            data: {
+                'post' : blogId
+            },
+            success: (response) => {
+                $(e.target).removeClass('contracting');
+                location.reload(true);
+            },
+            error: (response) => {
+                $(e.target).removeClass('contracting');
+                // console.log(response);
+            }
+        })
     }
 
     saveEdits(e){

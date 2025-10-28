@@ -17,6 +17,24 @@
     margin: 20px auto;
     display: block;
 }
+.tomc-front-posts--unpublish{
+    background-color: #602f32;
+    color: white;
+    font-size: 16;
+    border-radius: 15px;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin: 20px 10px;
+}
+.tomc-front-posts--publish{
+    background-color: #4c0548;
+    color: white;
+    font-size: 16;
+    border-radius: 15px;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin: 20px 10px;
+}
 .tomc-front-posts--edit{
     background-color: #e44e2d;
     color: white;
@@ -59,4 +77,29 @@ label[for="edit-blog--content"]{
 }
 #tomc-front-post__permanent-deletion-warning-message{
     margin-top: 80px;
+}
+.purple-heading-closed{
+    background-color: #4c0548;
+    color: white;
+    font-size: 16;
+    border-radius: 45px;
+    padding: 15px 10px;
+    cursor: pointer;
+    display: block;
+    margin: 20px auto;
+    width: 90%;
+    text-align: center;
+}
+.purple-heading-open{
+    background: white;
+    border: solid #4c0548 5px;
+    color: #4c0548;
+    font-size: 16;
+    border-radius: 45px;
+    padding: 15px 10px;
+    cursor: pointer;
+    display: block;
+    margin: 20px auto;
+    width: 90%;
+    text-align: center;
 }
