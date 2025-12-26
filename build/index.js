@@ -182,12 +182,10 @@ class BlogUpdate {
         'post': this.postId
       },
       success: response => {
-        console.log(response);
         jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).removeClass('contracting');
         location.reload(true);
       },
       error: response => {
-        console.log(response);
         jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).removeClass('contracting');
         this.deletePostError.addClass('hidden');
       }

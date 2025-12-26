@@ -176,12 +176,10 @@ class BlogUpdate{
                     'post' : this.postId
                 },
                 success: (response) => {
-                    console.log(response);
                     $(e.target).removeClass('contracting');
                     location.reload(true);
                 },
                 error: (response) => {
-                    console.log(response);
                     $(e.target).removeClass('contracting');
                     this.deletePostError.addClass('hidden');
                 }

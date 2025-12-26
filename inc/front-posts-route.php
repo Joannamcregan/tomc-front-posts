@@ -43,7 +43,16 @@ function updatePost($data){
     $posts_table = $wpdb->prefix .  "posts";
     $postId = sanitize_text_field($data['post']);
     $title = sanitize_text_field($data['title']);
-    $content = sanitize_text_field($data['content']);
+    $content = wp_kses($data['content'], array(
+        'a'      => array(
+            'href'  => array(),
+            'title' => array(),
+        ),
+        'br'     => array(),
+        'em'     => array(),
+        'strong' => array(),
+        'p' => array()
+    ));
     if (is_user_logged_in() && (in_array( 'administrator', (array) $user->roles ) || in_array( 'creator-member', (array) $user->roles ) )){
         $wpdb->update(
             $posts_table, 

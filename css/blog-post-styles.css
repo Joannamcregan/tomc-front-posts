@@ -103,3 +103,14 @@ label[for="edit-blog--content"]{
     width: 90%;
     text-align: center;
 }
+div.mce-inline-toolbar-grp.mce-arrow-left:before, div.mce-inline-toolbar-grp.mce-arrow-up:after{    
+    border-color: #f4eee8 !important;
+}
+.mce-toolbar-grp .mce-container-body{
+    background: #f4eee8 !important;
+    width: fit-content !important;
+}
+.wp-link-input input{
+    width: 250px !important;
+    border: solid black 2px !important;
+}

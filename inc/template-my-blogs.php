@@ -23,7 +23,7 @@ get_header();
                     <?php for($i = 0; $i < count($posts); $i++){
                         ?><div class="tomc-front-posts--post-to-edit page-accent-alt-thin">
                             <p class="centered-text"><strong class="tomc-front-posts--post-to-edit-title tomc-book-options--cursor-pointer"><?php echo $posts[$i]['post_title']; ?></strong></p>
-                            <div class="flex flex-wrap justify-content-center tomc-front-posts--edit-book-options" data-post="<?php echo $posts[$i]['id']; ?>" data-title="<?php echo $posts[$i]['post_title']; ?>" data-content="<?php echo $posts[$i]['post_content']; ?>">
+                            <div class='flex flex-wrap justify-content-center tomc-front-posts--edit-book-options' data-post='<?php echo $posts[$i]["id"]; ?>' data-title='<?php echo $posts[$i]["post_title"]; ?>' data-content='<?php echo esc_html($posts[$i]["post_content"]); ?>'>
                                 <button class="tomc-front-posts--edit">edit</button>
                                 <?php if ($posts[$i]['post_status'] == 'publish'){
                                     ?><button class="tomc-front-posts--unpublish">unpublish</button>
@@ -75,8 +75,7 @@ get_header();
                 </div>
             <?php } else {
                 ?><div class="generic-content">
-                    <h2 class="left-text">Looks like you haven't added any blog posts yet.</h2>
-                    <p><a href="<?php echo esc_url(site_url('/add-blog-post'));?>">add a post</a></p>
+                    <p class="centered-text">Looks like you haven't added any blog posts yet.</p>
                 </div>
             <?php }
             ?></div>
