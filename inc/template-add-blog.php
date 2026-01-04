@@ -14,7 +14,7 @@
                 <!-- prod= 6040, dev = 314 -->
             </div>
         <?php } else {
-            ?><p class="centered-text padding-x-20">Only admin and Creator-Members can post blogs. <a href="<?php echo esc_url(site_url('/creators-circle-membership'));?>">Become a Creator-Member</a></p>
+            ?><p class="centered-text padding-x-20">Only admin and Creator-Members can post blogs. <a href="<?php echo esc_url(site_url('/own'));?>">Join our cooperative</a> as a Creator-Member.</p>
         <?php }
     } else {
         ?><p class="centered-text padding-x-20">Only logged-in admin and Creator-Members can post blogs. <a href="<?php echo esc_url(site_url('/my-account'));?>">Login/Register</a></p>
