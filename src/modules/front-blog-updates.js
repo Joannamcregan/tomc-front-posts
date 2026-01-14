@@ -19,6 +19,11 @@ class BlogUpdate{
         this.permanentlyDeleteButton = $('#tomc-front-post__permanently-delete-button');
         this.addPostButton = $('#add-blog-post');
         this.addPostForm = $('#new-blog-post-form');
+        this.submitButton = $('#tomc-front-post--submit-blog');
+        this.newTitleField = $('#new-blog--title');
+        this.newContentField = $('#new-blog--content');
+        this.newNoTitleError = $('#tomc-front-post--new-errors-title');
+        this.newNoContentError = $('#tomc-front-post--new-errors-post');
         this.events();
         this.editPostOverlayIsOpen = false;
         this.deletePostOverlayIsOpen = false;
@@ -40,6 +45,44 @@ class BlogUpdate{
             $(e.target).toggleClass('purple-heading-open');
             $(e.target).toggleClass('purple-heading-closed');
         });
+        this.submitButton.on('click', this.publishPost.bind(this));
+    }
+
+    submitPost(e){
+        const newTitle = this.newTitleField.val();
+        const newContent = tinyMCE.get('new-blog--content').getContent();
+        if (newTitle != '' && newContent != ''){
+            this.noTitleError.addClass('hidden');
+            this.noContentError.addClass('hidden');
+            $(e.target).addClass('contracting');
+            $.ajax({
+                beforeSend: (xhr) => {
+                    xhr.setRequestHeader('X-WP-Nonce', marketplaceData.nonce);
+                },
+                url: tomcBookorgData.root_url + '/wp-json/tomcFrontBlogs/v1/updatePost',
+                type: 'POST',
+                data: {
+                    'post' : this.postId,
+                    'title' : newTitle,
+                    'content' : newContent
+                },
+                success: (response) => {
+                    $(e.target).removeClass('contracting');
+                    location.reload(true);
+                },
+                error: (response) => {
+                    $(e.target).removeClass('contracting');
+                    // console.log(response);
+                }
+            })
+        } else {
+            if (newTitle == ''){
+                this.noTitleError.removeClass('hidden');
+            }
+            if (newContent == ''){
+                this.noContentError.removeClass('hidden');
+            }
+        }
     }
 
     publishPost(e){

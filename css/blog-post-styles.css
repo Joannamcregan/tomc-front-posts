@@ -89,6 +89,8 @@ label[for="edit-blog--content"]{
     margin: 20px auto;
     width: 90%;
     text-align: center;
+    z-index: 800;
+    position: relative;
 }
 .purple-heading-open{
     background: white;
@@ -102,6 +104,8 @@ label[for="edit-blog--content"]{
     margin: 20px auto;
     width: 90%;
     text-align: center;
+    z-index: 800;
+    position: relative;
 }
 div.mce-inline-toolbar-grp.mce-arrow-left:before, div.mce-inline-toolbar-grp.mce-arrow-up:after{    
     border-color: #f4eee8 !important;
