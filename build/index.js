@@ -34,6 +34,11 @@ class BlogUpdate {
     this.permanentlyDeleteButton = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-front-post__permanently-delete-button');
     this.addPostButton = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#add-blog-post');
     this.addPostForm = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#new-blog-post-form');
+    this.submitButton = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-front-post--submit-blog');
+    this.newTitleField = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#new-blog--title');
+    this.newContentField = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#new-blog--content');
+    this.newNoTitleError = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-front-post--new-errors-title');
+    this.newNoContentError = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-front-post--new-errors-post');
     this.events();
     this.editPostOverlayIsOpen = false;
     this.deletePostOverlayIsOpen = false;
@@ -54,6 +59,42 @@ class BlogUpdate {
       jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).toggleClass('purple-heading-open');
       jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).toggleClass('purple-heading-closed');
     });
+    this.submitButton.on('click', this.submitPost.bind(this));
+  }
+  submitPost(e) {
+    const newTitle = this.newTitleField.val();
+    const newContent = tinyMCE.get('new-blog--content').getContent();
+    if (newTitle != '' && newContent != '') {
+      this.noTitleError.addClass('hidden');
+      this.noContentError.addClass('hidden');
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).addClass('contracting');
+      jquery__WEBPACK_IMPORTED_MODULE_0___default().ajax({
+        beforeSend: xhr => {
+          xhr.setRequestHeader('X-WP-Nonce', marketplaceData.nonce);
+        },
+        url: tomcBookorgData.root_url + '/wp-json/tomcFrontBlogs/v1/addPost',
+        type: 'POST',
+        data: {
+          'title': newTitle,
+          'content': newContent
+        },
+        success: response => {
+          jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).removeClass('contracting');
+          location.reload(true);
+        },
+        error: response => {
+          jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).removeClass('contracting');
+          // console.log(response);
+        }
+      });
+    } else {
+      if (newTitle == '') {
+        this.noTitleError.removeClass('hidden');
+      }
+      if (newContent == '') {
+        this.noContentError.removeClass('hidden');
+      }
+    }
   }
   publishPost(e) {
     const blogId = jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).parent('.tomc-front-posts--edit-book-options').data('post');

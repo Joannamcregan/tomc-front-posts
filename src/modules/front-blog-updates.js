@@ -45,7 +45,7 @@ class BlogUpdate{
             $(e.target).toggleClass('purple-heading-open');
             $(e.target).toggleClass('purple-heading-closed');
         });
-        this.submitButton.on('click', this.publishPost.bind(this));
+        this.submitButton.on('click', this.submitPost.bind(this));
     }
 
     submitPost(e){
@@ -59,10 +59,9 @@ class BlogUpdate{
                 beforeSend: (xhr) => {
                     xhr.setRequestHeader('X-WP-Nonce', marketplaceData.nonce);
                 },
-                url: tomcBookorgData.root_url + '/wp-json/tomcFrontBlogs/v1/updatePost',
+                url: tomcBookorgData.root_url + '/wp-json/tomcFrontBlogs/v1/addPost',
                 type: 'POST',
                 data: {
-                    'post' : this.postId,
                     'title' : newTitle,
                     'content' : newContent
                 },

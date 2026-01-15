@@ -12,23 +12,24 @@ get_header();
                 <h1 class="centered-text purple-heading-closed" id="add-blog-post">Add a Blog Post</h1>
                 <div id="new-blog-post-form" class="hidden">
                     <label for="new-blog--title">Blog Post Title</label>
-                            <input type="text" id="new-blog--title"></input>
-                            <label for="new-blog--content">Blog Post Content</label>
-                            <?php $content = '';
-                                $editor_id = 'new-blog--content';
-                                $settings = array( 
-                                    'wpautop' => false, 
-                                    'media_buttons' => false, 
-                                    'quicktags' => array(
-                                            'buttons' => 'strong,em,del,ul,ol,li,block,close'
-                                        ),
-                                );
-                            wp_editor( $content, $editor_id, $settings ); ?>
-                            <div class="tomc-front-post--form-div tomc-front-post--red-text centered-text" id="tomc-front-post--new-basic-info-errors">
-                                <p class="hidden" id="tomc-front-post--new-errors-title">Your blog post's title cannot be blank.</p>
-                                <p class="hidden" id="tomc-front-post--new-errors-post">Your blog post cannot be blank.</p>
-                            </div>
-                            <button class="tomc-front-posts--submit-button" id="tomc-front-post--submit-blog">save</button>
+                    <input type="text" id="new-blog--title"></input>
+                    <br><br>
+                    <label for="new-blog--content">Blog Post Content</label>
+                    <?php $content = '';
+                        $editor_id = 'new-blog--content';
+                        $settings = array( 
+                            'wpautop' => false, 
+                            'media_buttons' => false, 
+                            'quicktags' => array(
+                                    'buttons' => 'strong,em,del,ul,ol,li,block,close'
+                                ),
+                        );
+                    wp_editor( $content, $editor_id, $settings ); ?>
+                    <div class="tomc-front-post--form-div tomc-front-post--red-text centered-text" id="tomc-front-post--new-basic-info-errors">
+                        <p class="hidden" id="tomc-front-post--new-errors-title">Your blog post's title cannot be blank.</p>
+                        <p class="hidden" id="tomc-front-post--new-errors-post">Your blog post cannot be blank.</p>
+                    </div>
+                    <button class="tomc-front-posts--save-button" id="tomc-front-post--submit-blog">save</button>
                 </div>
                 <h1 class="centered-text">Your Blog Posts</h1>
                 <?php $query = "SELECT id, post_title, post_content, post_date, post_status from %i WHERE post_author = %d and post_type = 'post' ORDER BY post_date desc";

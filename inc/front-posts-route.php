@@ -37,6 +37,7 @@ function addPost($data){
         'strong' => array(),
         'p' => array()
     ));
+    $postname = str_replace(' ', '-', sanitize_text_field($data['title']));
     $content = wp_kses($data['content'], array(
         'a'      => array(
             'href'  => array(),
@@ -48,8 +49,8 @@ function addPost($data){
         'p' => array()
     ));
     if (is_user_logged_in() && (in_array( 'administrator', (array) $user->roles ) || in_array( 'creator-member', (array) $user->roles ) )){
-        $params = array('post_author' => $userid, 'post_title' => $title, 'post_content' => $content));
-        wp_insert_post( $post);
+        $params = array('post_author' => $userid, 'post_title' => $title, 'post_content' => $content, 'post_name' => $postname);
+        wp_insert_post( $params);
         return 'success';
     } else {
         wp_safe_redirect(site_url('/my-account'));
