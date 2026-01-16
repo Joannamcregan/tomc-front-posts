@@ -21,6 +21,26 @@ function tomcFrontPostsRegisterRoute() {
         'methods' => 'POST',
         'callback' => 'unpublishPost'
     ));
+    register_rest_route('tomcFrontBlogs/v1', 'uniquifyPostName', array(
+        'methods' => 'POST',
+        'callback' => 'uniquifyPostName'
+    ));
+}
+
+function uniquifyPostName($postname){
+    global $wpdb;
+    $posts_table = $wpdb->prefix . "posts";
+
+    $query = 'select posts.post_name
+    from %i posts
+    where posts.post_name = %s
+    and posts.post_type = "post"';
+    $results = $wpdb->get_results($wpdb->prepare($query, $posts_table, $postname), ARRAY_A);
+    if (count($results) > 0){
+        return $postname .= str_replace(":", "-", str_replace(' ', '-', date('Y-m-d H:i:s')));
+    } else {
+        return $postname;
+    }
 }
 
 function addPost($data){
@@ -37,7 +57,8 @@ function addPost($data){
         'strong' => array(),
         'p' => array()
     ));
-    $postname = str_replace(' ', '-', sanitize_text_field($data['title']));
+    $postname = str_replace("'", "", str_replace(' ', '-', sanitize_text_field($data['title'])));
+    $postname = uniquifyPostName($postname);
     $content = wp_kses($data['content'], array(
         'a'      => array(
             'href'  => array(),

@@ -73,10 +73,12 @@ class BlogUpdate {
           xhr.setRequestHeader('X-WP-Nonce', marketplaceData.nonce);
         },
         url: tomcBookorgData.root_url + '/wp-json/tomcFrontBlogs/v1/addPost',
+        // url: tomcBookorgData.root_url + '/wp-json/tomcFrontBlogs/v1/uniquifyPostName',
         type: 'POST',
         data: {
           'title': newTitle,
           'content': newContent
+          // 'title' : newTitle
         },
         success: response => {
           jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).removeClass('contracting');
