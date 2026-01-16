@@ -65,8 +65,8 @@ class BlogUpdate {
     const newTitle = this.newTitleField.val();
     const newContent = tinyMCE.get('new-blog--content').getContent();
     if (newTitle != '' && newContent != '') {
-      this.noTitleError.addClass('hidden');
-      this.noContentError.addClass('hidden');
+      this.newNoTitleError.addClass('hidden');
+      this.newNoContentError.addClass('hidden');
       jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).addClass('contracting');
       jquery__WEBPACK_IMPORTED_MODULE_0___default().ajax({
         beforeSend: xhr => {
@@ -91,10 +91,14 @@ class BlogUpdate {
       });
     } else {
       if (newTitle == '') {
-        this.noTitleError.removeClass('hidden');
+        this.newNoTitleError.removeClass('hidden');
+      } else {
+        this.newNoTitleError.addClass('hidden');
       }
       if (newContent == '') {
-        this.noContentError.removeClass('hidden');
+        this.newNoContentError.removeClass('hidden');
+      } else {
+        this.newNoContentError.addClass('hidden');
       }
     }
   }
