@@ -29,6 +29,8 @@ class BlogUpdate {
     this.saveEditsButton = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-front-post--save-edits');
     this.noTitleError = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-front-post--edit-errors-title');
     this.noContentError = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-front-post--edit-errors-post');
+    this.titleLengthError = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-front-post--edit-errors-title-length');
+    this.contentLengthError = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-front-post--edit-errors-post-length');
     this.deletePostOverlay = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-front-post__permanently-delete-post-overlay');
     this.cancelDeleteButton = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-front-post__cancel-permanent-deletion-button');
     this.permanentlyDeleteButton = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-front-post__permanently-delete-button');
@@ -39,6 +41,8 @@ class BlogUpdate {
     this.newContentField = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#new-blog--content');
     this.newNoTitleError = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-front-post--new-errors-title');
     this.newNoContentError = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-front-post--new-errors-post');
+    this.newTitleLengthError = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-front-post--new-errors-title-length');
+    this.newContentLengthError = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-front-post--new-errors-post-length');
     this.events();
     this.editPostOverlayIsOpen = false;
     this.deletePostOverlayIsOpen = false;
@@ -64,9 +68,11 @@ class BlogUpdate {
   submitPost(e) {
     const newTitle = this.newTitleField.val();
     const newContent = tinyMCE.get('new-blog--content').getContent();
-    if (newTitle != '' && newContent != '') {
+    if (newTitle != '' && newContent != '' && newTitle.length <= 200 && newContent.length <= 20000) {
       this.newNoTitleError.addClass('hidden');
       this.newNoContentError.addClass('hidden');
+      this.newTitleLengthError.addClass('hidden');
+      this.newContentLengthError.addClass('hidden');
       jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).addClass('contracting');
       jquery__WEBPACK_IMPORTED_MODULE_0___default().ajax({
         beforeSend: xhr => {
@@ -99,6 +105,16 @@ class BlogUpdate {
         this.newNoContentError.removeClass('hidden');
       } else {
         this.newNoContentError.addClass('hidden');
+      }
+      if (newTitle.length > 200) {
+        this.newTitleLengthError.removeClass('hidden');
+      } else {
+        this.newTitleLengthError.addClass('hidden');
+      }
+      if (newContent.length > 20000) {
+        this.newContentLengthError.removeClass('hidden');
+      } else {
+        this.newContentLengthError.addClass('hidden');
       }
     }
   }
@@ -149,9 +165,11 @@ class BlogUpdate {
   saveEdits(e) {
     const newTitle = this.titleField.val();
     const newContent = tinyMCE.get('edit-blog--content').getContent();
-    if (newTitle != '' && newContent != '') {
+    if (newTitle != '' && newContent != '' && newTitle.length <= 200 && newContent.length <= 20000) {
       this.noTitleError.addClass('hidden');
       this.noContentError.addClass('hidden');
+      this.titleLengthError.addClass('hidden');
+      this.contentLengthError.addClass('hidden');
       jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).addClass('contracting');
       jquery__WEBPACK_IMPORTED_MODULE_0___default().ajax({
         beforeSend: xhr => {
@@ -176,9 +194,23 @@ class BlogUpdate {
     } else {
       if (newTitle == '') {
         this.noTitleError.removeClass('hidden');
+      } else {
+        this.noTitleError.addClass('hidden');
       }
       if (newContent == '') {
         this.noContentError.removeClass('hidden');
+      } else {
+        this.noContentError.addClass('hidden');
+      }
+      if (newTitle.length > 200) {
+        this.titleLengthError.removeClass('hidden');
+      } else {
+        this.titleLengthError.addClass('hidden');
+      }
+      if (newContent.length > 20000) {
+        this.contentLengthError.removeClass('hidden');
+      } else {
+        this.contentLengthError.addClass('hidden');
       }
     }
   }

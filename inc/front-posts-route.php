@@ -57,7 +57,7 @@ function addPost($data){
         'strong' => array(),
         'p' => array()
     ));
-    $postname = str_replace("'", "", str_replace(' ', '-', sanitize_text_field($data['title'])));
+    $postname = str_replace(' ', '-', preg_replace('/[^a-z0-9 ]/i', '',sanitize_text_field($data['title'])));
     $postname = uniquifyPostName($postname);
     $content = wp_kses($data['content'], array(
         'a'      => array(

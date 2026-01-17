@@ -28,6 +28,8 @@ get_header();
                     <div class="tomc-front-post--form-div tomc-front-post--red-text centered-text" id="tomc-front-post--new-basic-info-errors">
                         <p class="hidden" id="tomc-front-post--new-errors-title">Your blog post's title cannot be blank.</p>
                         <p class="hidden" id="tomc-front-post--new-errors-post">Your blog post cannot be blank.</p>
+                        <p class="hidden" id="tomc-front-post--new-errors-title-length">Your blog post's title cannot be more than 200 characters long.</p>
+                        <p class="hidden" id="tomc-front-post--new-errors-post-length">Your blog post cannot be more than 20,000 characters long.</p>
                     </div>
                     <button class="tomc-front-posts--save-button" id="tomc-front-post--submit-blog">save</button>
                 </div>
@@ -75,6 +77,8 @@ get_header();
                             <div class="tomc-front-post--form-div tomc-front-post--red-text centered-text" id="tomc-front-post--edit-basic-info-errors">
                                 <p class="hidden" id="tomc-front-post--edit-errors-title">Your blog post's title cannot be blank.</p>
                                 <p class="hidden" id="tomc-front-post--edit-errors-post">Your blog post cannot be blank.</p>
+                                <p class="hidden" id="tomc-front-post--edit-errors-title-length">Your blog post's title cannot be more than 200 characters long.</p>
+                                <p class="hidden" id="tomc-front-post--edit-errors-post-length">Your blog post cannot be more than 20,000 characters long.</p>
                             </div>
                             <button class="tomc-front-posts--save-button" id="tomc-front-post--save-edits">save</button>
                         </div>

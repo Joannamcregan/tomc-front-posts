@@ -14,6 +14,8 @@ class BlogUpdate{
         this.saveEditsButton = $('#tomc-front-post--save-edits');
         this.noTitleError = $('#tomc-front-post--edit-errors-title');
         this.noContentError = $('#tomc-front-post--edit-errors-post');
+        this.titleLengthError = $('#tomc-front-post--edit-errors-title-length');
+        this.contentLengthError = $('#tomc-front-post--edit-errors-post-length');
         this.deletePostOverlay = $('#tomc-front-post__permanently-delete-post-overlay');
         this.cancelDeleteButton = $('#tomc-front-post__cancel-permanent-deletion-button');
         this.permanentlyDeleteButton = $('#tomc-front-post__permanently-delete-button');
@@ -24,6 +26,8 @@ class BlogUpdate{
         this.newContentField = $('#new-blog--content');
         this.newNoTitleError = $('#tomc-front-post--new-errors-title');
         this.newNoContentError = $('#tomc-front-post--new-errors-post');
+        this.newTitleLengthError = $('#tomc-front-post--new-errors-title-length');
+        this.newContentLengthError = $('#tomc-front-post--new-errors-post-length');
         this.events();
         this.editPostOverlayIsOpen = false;
         this.deletePostOverlayIsOpen = false;
@@ -51,9 +55,11 @@ class BlogUpdate{
     submitPost(e){
         const newTitle = this.newTitleField.val();
         const newContent = tinyMCE.get('new-blog--content').getContent();
-        if (newTitle != '' && newContent != ''){
+        if (newTitle != '' && newContent != '' && newTitle.length <= 200 && newContent.length <= 20000){
             this.newNoTitleError.addClass('hidden');
             this.newNoContentError.addClass('hidden');
+            this.newTitleLengthError.addClass('hidden');
+            this.newContentLengthError.addClass('hidden');
             $(e.target).addClass('contracting');
             $.ajax({
                 beforeSend: (xhr) => {
@@ -86,6 +92,16 @@ class BlogUpdate{
                 this.newNoContentError.removeClass('hidden');
             } else {
                 this.newNoContentError.addClass('hidden');
+            }
+            if (newTitle.length > 200){
+                this.newTitleLengthError.removeClass('hidden');
+            } else {
+                this.newTitleLengthError.addClass('hidden');
+            }
+            if (newContent.length > 20000){
+                this.newContentLengthError.removeClass('hidden');
+            } else {
+                this.newContentLengthError.addClass('hidden');
             }
         }
     }
@@ -139,9 +155,11 @@ class BlogUpdate{
     saveEdits(e){
         const newTitle = this.titleField.val();
         const newContent = tinyMCE.get('edit-blog--content').getContent();
-        if (newTitle != '' && newContent != ''){
+        if (newTitle != '' && newContent != '' && newTitle.length <= 200 && newContent.length <= 20000){
             this.noTitleError.addClass('hidden');
             this.noContentError.addClass('hidden');
+            this.titleLengthError.addClass('hidden');
+            this.contentLengthError.addClass('hidden');
             $(e.target).addClass('contracting');
             $.ajax({
                     beforeSend: (xhr) => {
@@ -166,9 +184,23 @@ class BlogUpdate{
         } else {
             if (newTitle == ''){
                 this.noTitleError.removeClass('hidden');
+            } else {
+                this.noTitleError.addClass('hidden');
             }
             if (newContent == ''){
                 this.noContentError.removeClass('hidden');
+            } else {
+                this.noContentError.addClass('hidden');
+            }
+            if (newTitle.length > 200){
+                this.titleLengthError.removeClass('hidden');
+            } else {
+                this.titleLengthError.addClass('hidden');
+            }
+            if (newContent.length > 20000){
+                this.contentLengthError.removeClass('hidden');
+            } else {
+                this.contentLengthError.addClass('hidden');
             }
         }
     }
